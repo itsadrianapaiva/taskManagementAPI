@@ -1,0 +1,13 @@
+{
+  "name": "taskmanagementapi",
+  "version": "1.0.0",
+  "description": "Software to account for maintenance tasks performed during a workday.",
+  "license": "MIT",
+  "author": "Adriana Paiva",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "jest"
+  }
+}

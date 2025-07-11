@@ -1,0 +1,34 @@
+version: '3.9'
+services: 
+  app:
+    build: .
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=example
+      - DB_NAME=task_system
+      - JWT_SECRET=secret
+      - REDIS_HOST=redis
+
+    db:
+      image: mysql:latest
+      restart: always
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: example
+        MYSQL_DATABASE: task_system
+      
+    redis:
+      image: redis:latest
+      restart: always
+      ports:
+        - "6379:6379"
