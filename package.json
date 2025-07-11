@@ -9,5 +9,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "test": "jest"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
   }
 }
