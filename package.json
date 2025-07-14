@@ -1,19 +1,24 @@
 {
   "name": "taskmanagementapi",
   "version": "1.0.0",
-  "description": "Software to account for maintenance tasks performed during a workday.",
+  "description": "API for managing maintenance tasks",
   "license": "MIT",
   "author": "Adriana Paiva",
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "test": "jest"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

@@ -1,10 +1,12 @@
-version: '3.9'
-services: 
-  app:
+version: "3.8"
+services:
+  # 1. The Node.js API service
+  api:
+    container_name: task_system_api
     build: .
-    ports: 
+    ports:
       - "3000:3000"
-    volumes: 
+    volumes:
       - .:/app
     depends_on:
       - db
@@ -12,23 +14,52 @@ services:
     environment:
       - NODE_ENV=development
       - DB_HOST=db
+      - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=example
       - DB_NAME=task_system
       - JWT_SECRET=secret
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
 
+    # 2. The MySQL Database service
     db:
-      image: mysql:latest
+      container_name: task_system_mysql
+      image: mysql:8.0
       restart: always
-      ports:
-        - "3306:3306"
       environment:
         MYSQL_ROOT_PASSWORD: example
         MYSQL_DATABASE: task_system
-      
+        MYSQL_USER: root
+        MYSQL_PASSWORD: example
+      volumes:
+        - mysql-data:/var/lib/mysql
+        - ./migrations:/docker-entrypoint-initdb.d
+      expose:
+        - "3306"
+
+    # 3. The Redis service
     redis:
-      image: redis:latest
+      container_name: task_system_redis
+      image: redis:alpine
       restart: always
-      ports:
-        - "6379:6379"
+      expose:
+        - "6379"
+      volumes:
+        - redis-data:/data
+
+    # # 4. Placeholder for The notification service
+    # worker:
+    #   container_name: task_system_worker
+    #   build: .
+    #   environment:
+    #     - REDIS_HOST=redis
+    #     - REDIS_PORT=6379
+    #   depends_on:
+    #     - redis
+    #   volumes:
+    #     - .:/app
+
+volumes:
+  mysql-data:
+  redis-data:

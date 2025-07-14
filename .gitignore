@@ -9,7 +9,6 @@ pnpm-lock.yaml
 # Environment variables
 .env
 .env*.local
-env.js
 
 # Logs
 *.log
