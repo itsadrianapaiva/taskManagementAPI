@@ -1,0 +1,4 @@
+// This configuration file is used to set up Babel for transpiling JavaScript code.
+{
+  "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]]
+}
