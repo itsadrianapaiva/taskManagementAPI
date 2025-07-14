@@ -1,8 +1,9 @@
-import { createUser } from "../services/auth.service";
-//import jwt
-//import env
+import { createUser } from "../services/auth.service.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { env } from "../config/env.js";
 
-export async function signup(req, res) {
+export async function signup(req, res, next) {
   try {
     const user = await createUser(req.body);
 
@@ -13,39 +14,43 @@ export async function signup(req, res) {
   } catch (error) {
     next(error);
   }
-
-  //check if email exists
-  //validate role
-  // hash password
-  //create user
-  //return user details
-  //catch block pass to error middleware
 }
 
-export function login(req, res) {
-  //Later : Async login function
-  //find user
-  //verify password
-  //generate jwt
-  //set jwt cookie
-  //success response
-  //catch block pass to error middleware
+export async function login(req, res, next) {
+  try {
+    const { email, password } = req.body;
 
-  const { email, password } = req.body;
+    const user = await getUserByEmail(email);
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
 
-  //Simulated token (hardcoded for demonstration purposes)
-  const fakeToken = "mock.jwt.token";
+    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
 
-  res
-    .cookie("jwt", fakeToken, {
-      httpOnly: true,
-      secure: false, // Set to true in production with HTTPS
-      sameSite: "strict", // Prevents CSRF attacks
-      maxAge: 15 * 60 * 1000, // expires in 15 minutes
-    })
-    .status(200)
-    .json({
-      message: "Login successful (mocked)",
-      token: fakeToken, // In a real application, we would return a JWT or session ID
+    const payload = {
+      id: user.id,
+      role: user.role,
+    };
+
+    const token = jwt.sign(payload, env.jwtsecret, {
+      expiresIn: env.jwtexpiresin,
     });
+
+    res
+      .cookie("jwt", token, {
+        httpOnly: true,
+        secure: false, // Set to true in production with HTTPS
+        sameSite: "strict",
+        maxAge: 15 * 60 * 1000,
+      })
+      .status(200)
+      .json({
+        message: "Login successful",
+      });
+  } catch (error) {
+    next(error);
+  }
 }

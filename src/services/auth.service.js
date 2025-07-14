@@ -4,7 +4,6 @@ import { pool } from "../db/mysql.js";
 export async function createUser({ name, email, password, role }) {
   const passwordHash = await bcrypt.hash(password, 12);
 
-  // SQL Insert Query
   const query = `INSERT INTO users (name, email, passwordHash, role)
     VALUES (?, ?, ?, ?)
     `;
@@ -28,4 +27,14 @@ export async function createUser({ name, email, password, role }) {
     }
     throw error;
   }
+}
+
+export async function getUserByEmail(email) {
+  const query = `SELECT * FROM users WHERE email = ? LIMIT 1`;
+
+  const [rows] = await pool.execute(query, [email]);
+
+  if (rows.length === 0) return null;
+
+  return rows[0];
 }
