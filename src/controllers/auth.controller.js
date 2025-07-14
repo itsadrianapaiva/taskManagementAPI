@@ -1,4 +1,4 @@
-import { createUser } from "../services/auth.service.js";
+import { createUser, getUserByEmail } from "../services/auth.service.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";

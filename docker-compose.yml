@@ -21,6 +21,7 @@ services:
       - JWT_SECRET=secret
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    network_mode: "host"
 
     # 2. The MySQL Database service
     db:

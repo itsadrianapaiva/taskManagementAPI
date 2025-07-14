@@ -1,0 +1,23 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: |
+      npm install
+      cp .env.example .env
+    command: |
+      docker-compose up -d
+      npm start
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+  - port: 3306
+    onOpen: ignore
+  - port: 6379
+    onOpen: ignore
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
