@@ -1,32 +1,25 @@
-//import hashPassword and comparePassword from utils later
+import { createUser } from "../services/auth.service";
 //import jwt
 //import env
 
-//import mysql2 connection
-//async findUserByemail
-//simulate query
-//async createUser
-//simulate query with mock response
+export async function signup(req, res) {
+  try {
+    const user = await createUser(req.body);
 
-export function signup(req, res) {
-  //Later: Async signup function
+    return res.status(201).json({
+      ...user, //safer user fields
+      message: "Signup successful",
+    });
+  } catch (error) {
+    next(error);
+  }
+
   //check if email exists
   //validate role
   // hash password
   //create user
   //return user details
   //catch block pass to error middleware
-
-  const { name, email, password, role } = req.body;
-
-  //Simulate response
-  return res.status(201).json({
-    id: 1,
-    name,
-    email,
-    role,
-    message: "Signup successful (mocked)",
-  });
 }
 
 export function login(req, res) {
