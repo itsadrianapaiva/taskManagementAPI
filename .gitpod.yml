@@ -4,7 +4,6 @@ image:
 tasks:
   - init: |
       npm install
-      cp .env.example .env
     command: |
       docker-compose up -d
       npm start
