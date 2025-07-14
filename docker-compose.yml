@@ -13,21 +13,23 @@ services:
       - redis
     environment:
       - NODE_ENV=${NODE_ENV}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=db
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
       - JWT_SECRET=${JWT_SECRET}
-      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_HOST=redis
       - REDIS_PORT=${REDIS_PORT}
-    network_mode: "host"
+    networks:
+      - app-network
 
     # 2. The MySQL Database service
-    db:
+  db:
       container_name: task_system_mysql
       image: mysql:8.0
       restart: always
+      command: --default-authentication-plugin=mysql_native_password
       environment:
         MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         MYSQL_DATABASE: ${DB_NAME}
@@ -36,18 +38,26 @@ services:
       volumes:
         - mysql-data:/var/lib/mysql
         - ./migrations:/docker-entrypoint-initdb.d
-      expose:
-        - "3306"
+      ports:
+        - "3306:3306"
+      networks:
+        - app-network
 
     # 3. The Redis service
-    redis:
+  redis:
       container_name: task_system_redis
       image: redis:alpine
       restart: always
-      expose:
-        - "6379"
+      ports:
+        - "6379:6379"
       volumes:
         - redis-data:/data
+      networks:
+        - app-network
+        
+networks:
+  app-network:
+    driver: bridge
 
     # # 4. Placeholder for The notification service
     # worker:
