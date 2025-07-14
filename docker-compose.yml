@@ -1,11 +1,11 @@
-version: "3.8"
+
 services:
   # 1. The Node.js API service
   api:
     container_name: task_system_api
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - .:/app
     depends_on:
@@ -26,35 +26,32 @@ services:
 
     # 2. The MySQL Database service
   db:
-      container_name: task_system_mysql
-      image: mysql:8.0
-      restart: always
-      command: --default-authentication-plugin=mysql_native_password
-      environment:
-        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-        MYSQL_DATABASE: ${DB_NAME}
-        MYSQL_USER: ${DB_USER}
-        MYSQL_PASSWORD: ${DB_PASSWORD}
-      volumes:
-        - mysql-data:/var/lib/mysql
-        - ./migrations:/docker-entrypoint-initdb.d
-      ports:
-        - "3306:3306"
-      networks:
-        - app-network
+    container_name: task_system_mysql
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./migrations:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
 
     # 3. The Redis service
   redis:
-      container_name: task_system_redis
-      image: redis:alpine
-      restart: always
-      ports:
-        - "6379:6379"
-      volumes:
-        - redis-data:/data
-      networks:
-        - app-network
-        
+    container_name: task_system_redis
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
