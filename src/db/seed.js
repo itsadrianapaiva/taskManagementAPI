@@ -7,23 +7,28 @@ async function seed() {
   await pool.query("DELETE FROM tasks");
   await pool.query("DELETE FROM users");
 
-  const passwordHash = await bcrypt.hash("secure123", 12);
+  const passwordHash = await bcrypt.hash("password123", 12);
 
-  const [manager] = await pool.query(
+  const [managerResult] = await pool.query(
     `INSERT INTO users (name, email, passwordHash, role)
         VALUES ('John Manager', 'john.manager@example.com', ?, 'manager')`,
     [passwordHash]
   );
 
-  const [technician] = await pool.query(
+  const [technicianResult] = await pool.query(
     `INSERT INTO users (name, email, passwordHash, role)
         VALUES ('Jane Technician', 'jane.tech@example.com', ?, 'technician')`,
     [passwordHash]
   );
 
-  await pool.query(`
+  const technicianId = technicianResult.insertId;
+
+  await pool.query(
+    `
     INSERT INTO tasks (summary, performedAt, technicianId)
-    VALUES ('Test seed task', '2025-07-15 10:00:00', 2)`);
+    VALUES ('Test seed task', '2025-07-15 10:00:00', ?)`,
+    [technicianId]
+  );
 
   console.log("DB seed completed");
   process.exit(0);

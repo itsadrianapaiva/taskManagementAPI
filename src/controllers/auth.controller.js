@@ -5,6 +5,11 @@ import { env } from "../config/env.js";
 
 export async function signup(req, res, next) {
   try {
+    // const error = validateSignupInput(req.body);
+    // if (error) {
+    //   return res.status(400).json({ error });
+    // }
+
     const user = await createUser(req.body);
 
     return res.status(201).json({
@@ -18,6 +23,10 @@ export async function signup(req, res, next) {
 
 export async function login(req, res, next) {
   try {
+    // const error = validateLoginInput(req.body);
+    // if (error) {
+    //   return res.status(400).json({ error });
+    // }
     const { email, password } = req.body;
 
     const user = await getUserByEmail(email);

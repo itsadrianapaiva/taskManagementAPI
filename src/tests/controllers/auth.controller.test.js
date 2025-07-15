@@ -6,7 +6,7 @@ describe("Auth Controller", () => {
     const baseUser = {
       name: "Jane",
       email: `jane${Date.now()}@example.com`,
-      password: "secure123",
+      password: "password123",
       role: "technician",
     };
 
@@ -43,7 +43,7 @@ describe("Auth Controller", () => {
   describe("POST /api/v1/auth/login", () => {
     const validUser = {
       email: "jane.tech@example.com",
-      password: "secure123",
+      password: "password123",
     };
 
     it("should return 200 and set cookie for valid login", async () => {

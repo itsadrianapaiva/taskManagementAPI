@@ -5,9 +5,18 @@ import {
   createTask as createTaskService,
 } from "../services/task.service.js";
 import { notificationQueue } from "../queues/notification.queue.js";
+import {
+  validateTaskInput,
+  validateTaskUpdateInput,
+} from "../utils/task.validation.js";
 
 export async function createTask(req, res, next) {
   try {
+    const error = validateTaskInput(req.body);
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
     const { summary, performedAt } = req.body;
     const technicianId = req.user.id;
 
@@ -39,6 +48,11 @@ export async function getTasks(req, res, next) {
 
 export async function updateTask(req, res, next) {
   try {
+    const error = validateTaskUpdateInput(req.body);
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
     const { summary } = req.body;
     const taskId = req.params.id;
     const technicianId = req.user.id;

@@ -9,13 +9,13 @@ describe("Task Controller", () => {
     //Login technician
     const technicianLogin = await request(app)
       .post("/api/v1/auth/login")
-      .send({ email: "jane.tech@example.com", password: "secure123" });
+      .send({ email: "jane.tech@example.com", password: "password123" });
     technicianCookie = technicianLogin.headers["set-cookie"];
 
     //Login manager
     const managerLogin = await request(app)
       .post("/api/v1/auth/login")
-      .send({ email: "john.manager@example.com", password: "secure123" });
+      .send({ email: "john.manager@example.com", password: "password123" });
     managerCookie = managerLogin.headers["set-cookie"];
   });
 
