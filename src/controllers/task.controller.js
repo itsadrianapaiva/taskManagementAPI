@@ -1,4 +1,8 @@
-import { getTasksByRole } from "../services/task.service.js";
+import {
+  deleteTaskById,
+  getTasksByRole,
+  updateTaskById,
+} from "../services/task.service.js";
 import { createTask as createTaskService } from "../services/task.service.js";
 
 export async function createTask(req, res, next) {
@@ -17,7 +21,7 @@ export async function createTask(req, res, next) {
   }
 }
 
-export async function getTasks(req, res) {
+export async function getTasks(req, res, next) {
   try {
     const tasks = await getTasksByRole(req.user);
     res.status(200).json(tasks);
@@ -26,16 +30,33 @@ export async function getTasks(req, res) {
   }
 }
 
-export function updateTask(req, res) {
-  res.status(200).json({
-    message: `Task ${req.params.id} updated (placeholder)`,
-    user: req.user,
-  });
+export async function updateTask(req, res, next) {
+  try {
+    const { summary } = req.body;
+    const taskId = req.params.id;
+    const technicianId = req.user.id;
+
+    const updateTask = await updateTaskById(taskId, technicianId, summary);
+
+    res.status(200).json({
+      ...updateTask,
+      message: "Task updated successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
-export function deleteTask(req, res) {
-  res.status(200).json({
-    message: `Task ${req.params.id} deleted (placeholder)`,
-    user: req.user,
-  });
+export async function deleteTask(req, res, next) {
+  try {
+    const taskId = req.params.id;
+
+    const result = await deleteTaskById(taskId);
+    res.status(200).json({
+      ...result,
+      message: "Task deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
 }
