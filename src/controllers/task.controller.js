@@ -4,6 +4,7 @@ import {
   updateTaskById,
 } from "../services/task.service.js";
 import { createTask as createTaskService } from "../services/task.service.js";
+import { notificationQueue } from "../queues/notification.queue.js";
 
 export async function createTask(req, res, next) {
   try {
@@ -11,6 +12,12 @@ export async function createTask(req, res, next) {
     const technicianId = req.user.id;
 
     const task = await createTaskService(summary, performedAt, technicianId);
+
+    await notificationQueue.add("notify", {
+      techId: req.user.id,
+      taskId: task.taskId,
+      date: performedAt,
+    });
 
     res.status(201).json({
       ...task,
@@ -37,6 +44,12 @@ export async function updateTask(req, res, next) {
     const technicianId = req.user.id;
 
     const updateTask = await updateTaskById(taskId, technicianId, summary);
+
+    await notificationQueue.add("notify", {
+      techId: req.user.id,
+      taskId: updateTask.taskId,
+      date: new Date().toISOString(),
+    });
 
     res.status(200).json({
       ...updateTask,
