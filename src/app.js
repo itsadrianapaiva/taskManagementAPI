@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { env } from "./config/env.js";
 import authRoutes from "./routes/auth.routes.js";
+import taskRoutes from "./routes/task.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -14,8 +15,8 @@ app.use(helmet()); //Security headers
 
 //Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/tasks", taskRoutes);
 // app.use("/api/v1/users", userRoutes);
-// app.use("/api/v1/tasks", taskRoutes);
 
 //Healthcheck
 app.get("/health", (req, res) => {
