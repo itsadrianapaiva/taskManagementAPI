@@ -2,11 +2,11 @@ import mysql from "mysql2/promise";
 import { env } from "../config/env.js";
 
 export const pool = mysql.createPool({
-  host: env.DB_HOST || "db",
-  user: env.DB_USER,
-  port: env.DB_PORT || 3306,
-  password: env.DB_PASSWORD,
-  database: env.DB_NAME,
+  host: env.db.host,
+  user: env.db.user,
+  port: env.db.port || 3306,
+  password: env.db.password,
+  database: env.db.database,
   waitForConnections: true,
   connectionLimit: 10, //good for small to medium apps
   queueLimit: 10, //prevent inifinite queueing while handling traffic spikes

@@ -68,7 +68,7 @@ describe("Auth Controller (Mocked)", () => {
     it("should return 401 for non-existent email", async () => {
       const res = await request(app)
         .post("/api/v1/auth/login")
-        .send({ email: "ghost@example.com", password: whatever });
+        .send({ email: "ghost@example.com", password: "whatever" });
 
       expect(res.statusCode).toBe(401);
       expect(res.body).toEqual({ error: "Invalid email or password" });

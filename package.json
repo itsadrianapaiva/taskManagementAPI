@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "jest",
+    "test": "DB_HOST=127.0.0.1 jest",
     "test:watch": "jest --watch"
   },
   "dependencies": {
