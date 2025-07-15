@@ -10,7 +10,10 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "DB_HOST=127.0.0.1 jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "db:seed": "node src/db/seed.js"
+
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

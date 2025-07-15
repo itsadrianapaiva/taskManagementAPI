@@ -44,7 +44,7 @@ describe("Auth Controller", () => {
 
   describe("POST /api/v1/auth/login", () => {
     const validUser = {
-      email: "jane@example.com",
+      email: "jane.tech@example.com",
       password: "secure123",
     };
 

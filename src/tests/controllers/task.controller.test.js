@@ -9,7 +9,7 @@ describe("Task Controller", () => {
     //Login technician
     const technicianLogin = await request(app)
       .post("/api/v1/auth/login")
-      .send({ email: "jane@example.com", password: "secure123" });
+      .send({ email: "jane.tech@example.com", password: "secure123" });
     technicianCookie = technicianLogin.headers["set-cookie"];
 
     //Login manager
@@ -38,11 +38,6 @@ describe("Task Controller", () => {
   });
 
   describe("GET /api/v1/tasks", () => {
-    const baseUser = {
-      email: "jane@example.com",
-      password: "secure123",
-    };
-
     it("should fetch technician own tasks", async () => {
       const res = await request(app)
         .get("/api/v1/tasks")
