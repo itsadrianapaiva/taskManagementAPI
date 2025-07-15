@@ -2,8 +2,8 @@ import {
   deleteTaskById,
   getTasksByRole,
   updateTaskById,
+  createTask as createTaskService,
 } from "../services/task.service.js";
-import { createTask as createTaskService } from "../services/task.service.js";
 import { notificationQueue } from "../queues/notification.queue.js";
 
 export async function createTask(req, res, next) {

@@ -3,13 +3,16 @@ services:
   api:
     container_name: task_system_api
     build: .
+    command: node src/server.js
     ports:
       - "3001:3000"
     volumes:
       - .:/app
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       - NODE_ENV=${NODE_ENV}
       - DB_HOST=db
@@ -38,6 +41,11 @@ services:
       - "3306:3306"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
     # 3. The Redis service
   redis:

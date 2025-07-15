@@ -1,13 +1,12 @@
 import { Queue } from "bullmq";
+import IORedis from "ioredis";
 import { env } from "../config/env.js";
-import { createClient } from "redis";
 
-// Redis socket API
-const connection = createClient({
-  socket: {
-    host: env.redis.host,
-    port: env.redis.port,
-  },
+// Redis API
+const connection = new IORedis({
+  host: env.redis.host,
+  port: env.redis.port,
+  maxRetriesPerRequest: null, //Required to avoid silent hangs in BullMQ
 });
 
 // Handle Redis connection errors
@@ -16,9 +15,19 @@ connection.on("error", (err) => {
 });
 
 // Ensure the connection is established
-await connection.connect();
+connection.on("ready", () => {
+  console.log("Redis connection ready (bull.js)");
+});
 
 // Factory function for clean queue creation by name
 export function createQueue(name) {
-  return new Queue(name, { connection });
+  return new Queue(name, {
+    connection,
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: { type: "exponential", delay: 1000 },
+    },
+  });
 }
+
+export { connection };
