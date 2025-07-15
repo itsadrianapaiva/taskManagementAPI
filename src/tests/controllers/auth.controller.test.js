@@ -29,8 +29,7 @@ describe("Auth Controller", () => {
       expect(res.body).toEqual({ error: "Email already exists" });
     });
 
-    if (
-      ("should return 400 if required fields are missing",
+    it("should return 400 if required fields are missing",
       async () => {
         const res = await request(app)
           .post("/api/v1/auth/signup")
@@ -39,7 +38,6 @@ describe("Auth Controller", () => {
         expect(res.statusCode).toBe(400);
         expect(res.body.error).toMatch(/Missing required field/);
       })
-    );
   });
 
   describe("POST /api/v1/auth/login", () => {
