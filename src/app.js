@@ -16,7 +16,6 @@ app.use(helmet()); //Security headers
 //Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/tasks", taskRoutes);
-// app.use("/api/v1/users", userRoutes);
 
 //Healthcheck
 app.get("/health", (req, res) => {

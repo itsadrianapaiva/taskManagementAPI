@@ -1,11 +1,11 @@
 import request from "supertest";
 import app from "../../app.js";
 
-describe("Auth Controller (Mocked)", () => {
+describe("Auth Controller", () => {
   describe("POST /api/v1/auth/signup", () => {
     const baseUser = {
       name: "Jane",
-      email: "jane@example.com",
+      email: `jane${Date.now()}@example.com`,
       password: "secure123",
       role: "technician",
     };
