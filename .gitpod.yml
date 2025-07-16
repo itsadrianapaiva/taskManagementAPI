@@ -3,19 +3,23 @@ image:
 
 tasks:
   - init: |
-      echo "JWT_SECRET=${JWT_SECRET}" >> .env
-      echo "JWT_EXPIRES_IN=${JWT_EXPIRES_IN}" >> .env
-      echo "DB_HOST=db" >> .env
-      echo "DB_PORT=3306" >> .env
-      echo "DB_USER=root" >> .env
-      echo "DB_PASSWORD=password" >> .env
-      echo "DB_NAME=task_system" >> .env
-      echo "MYSQL_ROOT_PASSWORD=password" >> .env
-      echo "MYSQL_DATABASE=task_system" >> .env
-      echo "REDIS_HOST=redis" >> .env
-      echo "REDIS_PORT=6379" >> .env
+      cat <<EOF > .env
+      JWT_SECRET=${JWT_SECRET}
+      JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      DB_HOST=db
+      DB_USER=root
+      DB_PORT=3306
+      DB_PASSWORD=password
+      DB_NAME=task_system
+      MYSQL_ROOT_PASSWORD=password
+      MYSQL_DATABASE=task_system
+      REDIS_HOST=redis
+      REDIS_PORT=6379
+      EOF
       npm install
+      docker-compose down -v
       docker-compose up -d --build
+      docker exec -it task_system_api npm install
     command: sleep infinity
 
 ports:
