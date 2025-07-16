@@ -4,9 +4,8 @@ image:
 tasks:
   - init: |
       npm install
-    command: |
-      docker-compose up -d
-      npm start
+      docker-compose up -d --build
+    command: sleep infinity
 
 ports:
   - port: 3000
