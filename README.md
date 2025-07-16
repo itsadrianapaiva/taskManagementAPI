@@ -1,5 +1,5 @@
 # Task Management API  
-Backend Challenge — Sword Health (MVP)
+Backend Challenge (MVP)
 
 ## Overview  
 This project is a secure, role-based task management API designed for a healthcare-like environment where managers oversee technicians' work. It demonstrates strong backend fundamentals, focusing on security, clean architecture, database integrity, and asynchronous processing through message queues.
@@ -41,7 +41,19 @@ tests/                 # Integration tests
 k8s/                   # Kubernetes manifests
 ```
 
-## Running Tests
+## 🖥️ Running on Gitpod
+
+This project was developed and tested using **Gitpod** with Docker support.
+
+### Steps to Run:
+
+1️. Open the repository in Gitpod:  <https://gitpod.io/#git@github.com:itsadrianapaiva/taskManagementAPI.git>
+2️. Inside Gitpod terminal:  
+```bash
+docker-compose up --build
+3.Acess the API:
+http://(Gitpod will provide a forwarded port URL in the interface.)
+4. Running Tests:
 ```bash
 npm run test
 ```
