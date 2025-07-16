@@ -18,11 +18,10 @@ export async function signup(req, res, next) {
     const user = await createUser(req.body);
 
     return res.status(201).json({
-      ...user, 
+      ...user,
       message: "Signup successful",
     });
   } catch (error) {
-    console.error("Signup error:", error);
     next(error);
   }
 }
