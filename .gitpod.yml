@@ -3,6 +3,17 @@ image:
 
 tasks:
   - init: |
+      echo "JWT_SECRET=${JWT_SECRET}" >> .env
+      echo "JWT_EXPIRES_IN=${JWT_EXPIRES_IN}" >> .env
+      echo "DB_HOST=db" >> .env
+      echo "DB_PORT=3306" >> .env
+      echo "DB_USER=root" >> .env
+      echo "DB_PASSWORD=password" >> .env
+      echo "DB_NAME=task_system" >> .env
+      echo "MYSQL_ROOT_PASSWORD=password" >> .env
+      echo "MYSQL_DATABASE=task_system" >> .env
+      echo "REDIS_HOST=redis" >> .env
+      echo "REDIS_PORT=6379" >> .env
       npm install
       docker-compose up -d --build
     command: sleep infinity
