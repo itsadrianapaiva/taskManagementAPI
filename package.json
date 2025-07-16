@@ -12,7 +12,10 @@
     "test": "npm run db:seed && jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "db:seed": "node src/db/seed.js"
+    "db:seed": "node src/db/seed.js",
+    "db:clean": "node src/db/clean.js",
+    "worker:clean": "docker exec -it task_system_redis redis-cli FLUSHALL"
+
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

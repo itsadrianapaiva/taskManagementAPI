@@ -41,7 +41,7 @@ tests/                 # Integration tests
 k8s/                   # Kubernetes manifests
 ```
 
-## 🖥️ Running on Gitpod
+## Running on Gitpod
 
 This project was developed and tested using **Gitpod** with Docker support.
 
@@ -51,7 +51,7 @@ This project was developed and tested using **Gitpod** with Docker support.
 2️. Inside Gitpod terminal:  
 ```bash
 docker-compose up --build
-3.Acess the API:
+3.Access the API:
 http://(Gitpod will provide a forwarded port URL in the interface.)
 4. Running Tests:
 ```bash
@@ -90,16 +90,17 @@ REDIS_PORT=
 ```
 
 ## Kubernetes Deployment (Prepared)
-See [Kubernetes Deployment Section](#-kubernetes-deployment-documentation-only)  
+See [Kubernetes Deployment Section](./docs/k8s.md)  
 All manifests provided for API, MySQL, Redis, Worker.
 
 ## API Endpoints Summary
+See [openAPI Spec](./docs/openapi.yaml) 
 
 ### Authentication
 ```
 POST   /api/v1/auth/signup
 POST   /api/v1/auth/login
-GET    /api/v1/auth/me
+GET    /api/v1/auth/profile
 ```
 
 ### Tasks
