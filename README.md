@@ -1,6 +1,7 @@
 # Task Management API  
 Backend Challenge (MVP)
 [![View on GitHub](https://img.shields.io/badge/GitHub-View%20Repo-blue?logo=github)](https://github.com/itsadrianapaiva/taskManagementAPI.git)
+[Complete Technical Documentation (PDF)](./docs/technical-documentation.pdf)
 
 
 ## Overview  
@@ -45,21 +46,21 @@ k8s/                   # Kubernetes manifests
 
 ## Running on Gitpod
 
-This project was developed and tested using **Gitpod** with Docker support.
+> This project was developed and tested using **Gitpod** with Docker support.  
+> No local installation required.
 
-### Steps to Run:
+### Quick Start on Gitpod:
+1. **Open the repository directly in Gitpod**:  
+   [Open in Gitpod](https://gitpod.io/#git@github.com:itsadrianapaiva/taskManagementAPI.git)
 
-1️. Open the repository in Gitpod:  <https://gitpod.io/#git@github.com:itsadrianapaiva/taskManagementAPI.git>
-
-2️. Inside Gitpod terminal:  
+2. **Start the project inside the Gitpod terminal:**
 ```bash
 docker-compose up --build
 ```
 
-3. Access the API:
-Gitpod will provide a forwarded port URL in the interface.
+3. Access the API through Gitpod's forwarded port (shown in the Gitpod interface).
 
-4. Running Tests:
+4. Run tests:
 ```bash
 npm run test
 ```
@@ -101,7 +102,7 @@ See [Kubernetes Deployment Section](./docs/k8s.md)
 All manifests provided for API, MySQL, Redis, Worker.
 
 ## API Endpoints Summary
-See [openAPI spec](./docs/openapi.yaml).
+See [OpenAPI spec](./docs/openapi.yaml).
 
 ### Authentication
 ```
@@ -126,8 +127,20 @@ DELETE /api/v1/tasks/:id        (Manager only)
 - Kubernetes deployment prepared for real-world expectations  
 
 ## Possible Improvements (If More Time)
-- Email/SMS integration for real notifications
-- Swagger/OpenAPI documentation
-- Production-grade secrets management
-- CI/CD pipeline for automated tests + deploy
+- Integrate real notification services (Email/SMS)
+- Auto-generated Swagger/OpenAPI docs for developer onboarding
+- Secure secrets management via Vault/Kubernetes Secrets
+- CI/CD pipeline (GitHub Actions) for tests, builds, deployments
+- E2E testing for queue/worker flows
+- Replace the current manual input validation with a robust validation library (e.g., Zod, Yup, or Joi) to provide better schema enforcement, error messages, and maintainability.
+
+
+## Documentation
+- [📑 Complete Technical Documentation (PDF)](./docs/technical-documentation.pdf)
+- [⚙️ Kubernetes Deployment Guide (PDF)](./docs/k8s.md)
+- [📂 OpenAPI Spec (YAML)](./docs/openapi.yaml)
+
+---
+Thank you for reviewing this submission. I'm happy to clarify or walk through the solution if needed.
+
 
