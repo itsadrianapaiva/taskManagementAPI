@@ -62,7 +62,7 @@ docker-compose up --build
 
 4. Run tests:
 ```bash
-npm run test
+npm run test:docker
 ```
 
 ### Tests cover:
