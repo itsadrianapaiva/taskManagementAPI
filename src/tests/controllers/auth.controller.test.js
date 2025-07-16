@@ -36,7 +36,7 @@ describe("Auth Controller", () => {
           .send({ email: "only@email.com" });
 
         expect(res.statusCode).toBe(400);
-        expect(res.body.error).toMatch(/Missing required field/);
+        expect(res.body.error).toBe("Missing required fields: name, password, role");
       })
   });
 
