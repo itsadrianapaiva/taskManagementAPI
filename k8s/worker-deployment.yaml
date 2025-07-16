@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: task-system
+spec:
+  selector:
+    matchLabels:
+      app: worker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: itsadrianapaiva/task-management-api:latest
+        command: ["node", "src/workers/notification.worker.js"]
+        envFrom:
+        - configMapRef:
+            name: task-system-config
+        - secretRef:
+            name: task-system-secrets
