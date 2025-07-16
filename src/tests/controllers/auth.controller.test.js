@@ -60,7 +60,7 @@ describe("Auth Controller", () => {
         .send({ email: validUser.email, password: "wrongpassword" });
 
       expect(res.statusCode).toBe(401);
-      expect(res.body).toEqual({ error: "Invalid email or password" });
+      expect(res.body).toEqual({ error: "Invalid password" });
     });
 
     it("should return 401 for non-existent email", async () => {
@@ -69,7 +69,7 @@ describe("Auth Controller", () => {
         .send({ email: "ghost@example.com", password: "whatever" });
 
       expect(res.statusCode).toBe(401);
-      expect(res.body).toEqual({ error: "Invalid email or password" });
+      expect(res.body).toEqual({ error: "Invalid email" });
     });
   });
 });

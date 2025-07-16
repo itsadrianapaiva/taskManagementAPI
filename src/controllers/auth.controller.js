@@ -1,7 +1,8 @@
-import { createUser, getUserByEmail } from "../services/auth.service.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
+import { createUser, getUserByEmail } from "../services/auth.service.js";
+import { AppError } from "../utils/appError.js";
 
 export async function signup(req, res, next) {
   try {
@@ -31,12 +32,12 @@ export async function login(req, res, next) {
 
     const user = await getUserByEmail(email);
     if (!user) {
-      return res.status(401).json({ error: "Invalid email or password" });
+      throw new AppError("Invalid email", 401);
     }
 
     const passwordMatch = await bcrypt.compare(password, user.passwordHash);
     if (!passwordMatch) {
-      return res.status(401).json({ error: "Invalid email or password" });
+      throw new AppError("Invalid password", 401);
     }
 
     const payload = {

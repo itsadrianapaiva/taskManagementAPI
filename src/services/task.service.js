@@ -1,4 +1,5 @@
 import { pool } from "../db/mysql.js";
+import { AppError } from "../utils/appError.js";
 
 export async function createTask(summary, performedAt, technicianId) {
   const query =
@@ -41,11 +42,11 @@ export async function updateTaskById(taskId, technicianId, summary) {
   );
 
   if (rows.length === 0) {
-    throw new Error("Task not found");
+    throw new AppError("Task not found", 404);
   }
 
   if (rows[0].technicianId !== technicianId) {
-    throw new Error("Unauthorized");
+    throw new AppError("Unauthorized", 403);
   }
 
   //Update task
@@ -66,7 +67,7 @@ export async function deleteTaskById(taskId) {
   );
 
   if (rows.length === 0) {
-    throw new Error("Task not found");
+    throw new AppError("Task not found", 404);
   }
 
   await pool.execute("DELETE FROM tasks WHERE id = ?", [taskId]);

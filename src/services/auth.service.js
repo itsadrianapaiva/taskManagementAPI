@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { AppError } from "../utils/appError.js";
 import { pool } from "../db/mysql.js";
 
 export async function createUser({ name, email, password, role }) {
@@ -23,7 +24,7 @@ export async function createUser({ name, email, password, role }) {
     };
   } catch (error) {
     if (error.code === "ER_DUP_ENTRY") {
-      throw new Error("Email already exists");
+      throw new AppError("Email already exists", 409);
     }
     throw error;
   }

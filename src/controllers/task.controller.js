@@ -9,12 +9,13 @@ import {
   validateTaskInput,
   validateTaskUpdateInput,
 } from "../utils/task.validation.js";
+import { AppError } from "../utils/appError.js";
 
 export async function createTask(req, res, next) {
   try {
     const error = validateTaskInput(req.body);
     if (error) {
-      return res.status(400).json({ error });
+      throw new AppError(error, 400);
     }
 
     const { summary, performedAt } = req.body;
@@ -50,7 +51,7 @@ export async function updateTask(req, res, next) {
   try {
     const error = validateTaskUpdateInput(req.body);
     if (error) {
-      return res.status(400).json({ error });
+      throw new AppError(error, 400);
     }
 
     const { summary } = req.body;
