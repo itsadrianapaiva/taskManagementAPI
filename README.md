@@ -1,5 +1,7 @@
 # Task Management API  
 Backend Challenge (MVP)
+[![View on GitHub](https://img.shields.io/badge/GitHub-View%20Repo-blue?logo=github)](https://github.com/itsadrianapaiva/taskManagementAPI.git)
+
 
 ## Overview  
 This project is a secure, role-based task management API designed for a healthcare-like environment where managers oversee technicians' work. It demonstrates strong backend fundamentals, focusing on security, clean architecture, database integrity, and asynchronous processing through message queues.
@@ -48,16 +50,21 @@ This project was developed and tested using **Gitpod** with Docker support.
 ### Steps to Run:
 
 1️. Open the repository in Gitpod:  <https://gitpod.io/#git@github.com:itsadrianapaiva/taskManagementAPI.git>
+
 2️. Inside Gitpod terminal:  
 ```bash
 docker-compose up --build
-3.Access the API:
-http://(Gitpod will provide a forwarded port URL in the interface.)
+```
+
+3. Access the API:
+Gitpod will provide a forwarded port URL in the interface.
+
 4. Running Tests:
 ```bash
 npm run test
 ```
-Tests cover:
+
+### Tests cover:
 - Authentication (signup/login)
 - Role-based access
 - Task lifecycle (create, update, delete)
@@ -94,7 +101,7 @@ See [Kubernetes Deployment Section](./docs/k8s.md)
 All manifests provided for API, MySQL, Redis, Worker.
 
 ## API Endpoints Summary
-See [openAPI Spec](./docs/openapi.yaml) 
+See [openAPI spec](./docs/openapi.yaml).
 
 ### Authentication
 ```

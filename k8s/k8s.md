@@ -51,7 +51,7 @@ Then access at `http://localhost:3000`
 
 ---
 
-## 📌 **Environment Variables:**
+## **Environment Variables:**
 
 These services rely on `env` variables already defined inside the manifests:
 
